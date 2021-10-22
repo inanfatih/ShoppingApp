@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.minan.shoppingapp.R
 import kotlinx.android.synthetic.main.activity_splash.*
 
-@Suppress("DEPRECATION")
 class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

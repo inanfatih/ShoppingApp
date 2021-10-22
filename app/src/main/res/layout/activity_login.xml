@@ -47,6 +47,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/fl_header_image"
         />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_email"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -155,6 +156,8 @@
             android:textColor="@color/colorSecondaryText"
             android:textSize="@dimen/lbl_text_view_textSize"
             />
+
+        <!--            android:onClick="register"-->
 
         <com.minan.shoppingapp.utils.MyTextViewBold
             android:id="@+id/tv_register"
