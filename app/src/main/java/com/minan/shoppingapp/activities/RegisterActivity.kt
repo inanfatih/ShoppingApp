@@ -7,6 +7,8 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.view.WindowInsets
 import android.view.WindowManager
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.minan.shoppingapp.R
 import kotlinx.android.synthetic.main.activity_register.*
 
@@ -30,12 +32,13 @@ class RegisterActivity : BaseActivity() {
         setupActionBar()
 
         tv_login.setOnClickListener{
-            val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
-            startActivity(intent)
+//            val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
+//            startActivity(intent)
+            onBackPressed()
         }
 
         btn_register.setOnClickListener{
-            validateRegisterDetails()
+            registerUser()
         }
     }
 
@@ -93,9 +96,36 @@ class RegisterActivity : BaseActivity() {
                 false
             }
             else -> {
-                showErrorSnackBar("Your details are finally valid", false)
                 true
             }
+        }
+    }
+
+    private fun registerUser()
+    {
+        if (validateRegisterDetails())
+        {
+            showProgressDialog(resources.getString(R.string.please_wait))
+            val email: String = et_email.text.toString().trim()
+            val password: String = et_password.text.toString().trim()
+
+            FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener {
+                    if (it.isSuccessful)
+                    {
+                        val firebaseUser: FirebaseUser = it.result!!.user!!
+                        showErrorSnackBar("Account created. User id: ${firebaseUser.email}", false)
+
+                        FirebaseAuth.getInstance().signOut()
+                        finish()
+                    }
+                    else
+                    {
+                        showErrorSnackBar("Account creation failed: ${it.exception?.message}", true)
+                    }
+                    hideProgressDialog()
+                }
+
         }
     }
 }

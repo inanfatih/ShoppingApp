@@ -10,6 +10,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ShoppingApp">
         <activity
+            android:name=".activities.ForgotPasswordActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
             android:name=".activities.BaseActivity"
             android:exported="false" />
         <activity
