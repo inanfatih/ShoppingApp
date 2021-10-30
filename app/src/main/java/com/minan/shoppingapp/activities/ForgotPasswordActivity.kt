@@ -1,24 +1,32 @@
 package com.minan.shoppingapp.activities
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.installations.Utils
 import com.minan.shoppingapp.R
-import kotlinx.android.synthetic.main.activity_forgot_password.*
-import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.activity_register.*
+import com.minan.shoppingapp.databinding.ActivityForgotPasswordBinding
+import com.minan.shoppingapp.databinding.ActivityLoginBinding
+import com.minan.shoppingapp.databinding.ActivityRegisterBinding
+
+private lateinit var binding: ActivityForgotPasswordBinding
+private lateinit var bindingLogin: ActivityLoginBinding
+private lateinit var bindingRegister: ActivityRegisterBinding
 
 class ForgotPasswordActivity : BaseActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_forgot_password)
+
+        binding = ActivityForgotPasswordBinding.inflate(layoutInflater)
+        bindingLogin = ActivityLoginBinding.inflate(layoutInflater)
+        bindingRegister = ActivityRegisterBinding.inflate(layoutInflater)
+
+        setContentView(binding.root)
         setupActionBar()
-        btn_submit.setOnClickListener(this)
+
+        binding.btnSubmit.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
@@ -26,7 +34,7 @@ class ForgotPasswordActivity : BaseActivity(), View.OnClickListener {
         {
             if (validateFields())
             {
-                val email = et_email_forgot_password.text.toString().trim()
+                val email = binding.etEmailForgotPassword.text.toString().trim()
                 showProgressDialog(getString(R.string.please_wait))
                 FirebaseAuth.getInstance().sendPasswordResetEmail(email).addOnCompleteListener {
                     if (it.isSuccessful)
@@ -39,7 +47,7 @@ class ForgotPasswordActivity : BaseActivity(), View.OnClickListener {
                     }
                     else
                     {
-                        it.exception?.message?.let { it1 -> showErrorSnackBar(it1, true) }
+                        it.exception?.message?.let { it1 -> showSnackBar(it1, true) }
                     }
                     hideProgressDialog()
                 }
@@ -48,6 +56,7 @@ class ForgotPasswordActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun setupActionBar() {
+        val toolbar_forgot_password_activity: Toolbar = findViewById(R.id.toolbar_forgot_password_activity)
         setSupportActionBar(toolbar_forgot_password_activity)
         //Once AppBar, sonra  ActionBar, daha sonra da Toolbar cikmis ve aslinda hepsi ayni ise yariyor. Toolbar daha esnek ve daha kullanisli
         val actionBar = supportActionBar
@@ -66,8 +75,8 @@ class ForgotPasswordActivity : BaseActivity(), View.OnClickListener {
     {
         return when
         {
-            TextUtils.isEmpty(et_email_forgot_password.text.toString().trim()) -> {
-                showErrorSnackBar(resources.getString(R.string.err_msg_enter_email), true)
+            TextUtils.isEmpty(binding.etEmailForgotPassword.text.toString().trim()) -> {
+                showSnackBar(resources.getString(R.string.err_msg_enter_email), true)
                 false
             }
             else -> {

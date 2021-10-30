@@ -2,20 +2,27 @@ package com.minan.shoppingapp.activities
 
 import android.content.Intent
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
 import com.google.firebase.auth.FirebaseAuth
 import com.minan.shoppingapp.R
-import kotlinx.android.synthetic.main.activity_login.*
+import com.minan.shoppingapp.databinding.ActivityLoginBinding
+import com.minan.shoppingapp.firestore.FirestoreClass
+import com.minan.shoppingapp.models.User
+import com.minan.shoppingapp.utils.Constants
 
 class LoginActivity : BaseActivity(), View.OnClickListener {
+
+    private lateinit var binding: ActivityLoginBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+        binding = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.insetsController?.hide(WindowInsets.Type.statusBars())
@@ -26,9 +33,9 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN
             )
         }
-        tv_forgot_password.setOnClickListener(this)
-        btn_login.setOnClickListener(this)
-        tv_register.setOnClickListener(this)
+        binding.tvForgotPassword.setOnClickListener(this)
+        binding.btnLogin.setOnClickListener(this)
+        binding.tvRegister.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
@@ -44,7 +51,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                     logInRegisteredUser()
                 }
                 R.id.tv_register -> {
-                    val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
+                    val intent = Intent(this, RegisterActivity::class.java)
                     startActivity(intent)
                 }
             }
@@ -54,12 +61,12 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
     private fun validateLoginDetails(): Boolean {
         return when
         {
-            TextUtils.isEmpty(et_email.text.toString().trim()) -> {
-                showErrorSnackBar(resources.getString(R.string.err_msg_enter_email), true)
+            TextUtils.isEmpty(binding.etEmail.text.toString().trim()) -> {
+                showSnackBar(resources.getString(R.string.err_msg_enter_email), true)
                 false
             }
-            TextUtils.isEmpty(et_password.text.toString().trim()) -> {
-                showErrorSnackBar(resources.getString(R.string.err_msg_enter_password), true)
+            TextUtils.isEmpty(binding.etPassword.text.toString().trim()) -> {
+                showSnackBar(resources.getString(R.string.err_msg_enter_password), true)
                 false
             }
             else -> {
@@ -74,26 +81,41 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         {
             showProgressDialog(resources.getString(R.string.please_wait))
 
-            val email = et_email.text.toString().trim()
-            val password = et_password.text.toString().trim()
+            val email = binding.etEmail.text.toString().trim()
+            val password = binding.etPassword.text.toString().trim()
 
             FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener{
-                    hideProgressDialog()
                     if (it.isSuccessful)
                     {
-                        showErrorSnackBar("You are logged in successfully", false)
+                        FirestoreClass().getUserDetails(this)
                     }
                     else
                     {
-                        showErrorSnackBar(it.exception!!.message.toString(), true)
+                        hideProgressDialog()
+                        showSnackBar(it.exception!!.message.toString(), true)
                     }
                 }
-
-
-
-
         }
+    }
+
+    fun userLoggedInSuccess(user: User) {
+        hideProgressDialog()
+        Log.i("First name", user.firstName)
+        Log.i("Last name", user.lastName)
+        Log.i("email", user.email)
+
+        if (user.profileCompleted == 0)
+        {
+            val intent = Intent(this, UserProfileActivity::class.java)
+            intent.putExtra(Constants.EXTRA_USER_DETAILS, user)
+            startActivity(intent)
+        }
+        else
+        {
+            startActivity(Intent(this, MainActivity::class.java))
+        }
+        finish()
     }
 
 }

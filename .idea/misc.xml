@@ -3,14 +3,19 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/mfati/AndroidStudioProjects/ShoppingApp/app/src/main/res/drawable/app_gradient_color_background.xml" value="0.2875" />
         <entry key="..\:/Users/mfati/AndroidStudioProjects/ShoppingApp/app/src/main/res/drawable/button_background.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/mfati/AndroidStudioProjects/ShoppingApp/app/src/main/res/drawable/drawable_gender_tab_selector.xml" value="0.28541666666666665" />
+        <entry key="..\:/Users/mfati/AndroidStudioProjects/ShoppingApp/app/src/main/res/drawable/drawable_gender_tab_text_color_selector.xml" value="0.28541666666666665" />
         <entry key="..\:/Users/mfati/AndroidStudioProjects/ShoppingApp/app/src/main/res/drawable/splash.xml" value="0.21481481481481482" />
+        <entry key="..\:/Users/mfati/AndroidStudioProjects/ShoppingApp/app/src/main/res/drawable/user_image_background.xml" value="0.2875" />
         <entry key="..\:/Users/mfati/AndroidStudioProjects/ShoppingApp/app/src/main/res/layout/activity_base.xml" value="0.3625" />
         <entry key="..\:/Users/mfati/AndroidStudioProjects/ShoppingApp/app/src/main/res/layout/activity_forgot_password.xml" value="0.3625" />
         <entry key="..\:/Users/mfati/AndroidStudioProjects/ShoppingApp/app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="..\:/Users/mfati/AndroidStudioProjects/ShoppingApp/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/mfati/AndroidStudioProjects/ShoppingApp/app/src/main/res/layout/activity_register.xml" value="0.17120622568093385" />
         <entry key="..\:/Users/mfati/AndroidStudioProjects/ShoppingApp/app/src/main/res/layout/activity_splash.xml" value="0.1" />
+        <entry key="..\:/Users/mfati/AndroidStudioProjects/ShoppingApp/app/src/main/res/layout/activity_user_profile.xml" value="0.25" />
         <entry key="..\:/Users/mfati/AndroidStudioProjects/ShoppingApp/app/src/main/res/layout/dialog_progress.xml" value="0.3625" />
         <entry key="..\:/Users/mfati/AndroidStudioProjects/ShoppingApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.19814814814814816" />
       </map>
