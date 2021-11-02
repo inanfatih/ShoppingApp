@@ -1,6 +1,7 @@
-package com.minan.shoppingapp.activities
+package com.minan.shoppingapp.ui.activities
 
 import android.app.Dialog
+import android.os.Handler
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -8,10 +9,13 @@ import com.google.android.material.snackbar.Snackbar
 import com.minan.shoppingapp.R
 import com.minan.shoppingapp.databinding.ActivityBaseBinding
 
-private lateinit var binding: ActivityBaseBinding
+
 open class BaseActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityBaseBinding
     private lateinit var progressDialog: Dialog
+
+    private var doubleBackToExitPressedOnce = false
 
     fun showSnackBar(message: String, errorMessage: Boolean = false)
     {
@@ -47,5 +51,19 @@ open class BaseActivity : AppCompatActivity() {
     fun hideProgressDialog()
     {
         progressDialog.dismiss()
+    }
+
+    fun doubleBackToExit()
+    {
+        if (doubleBackToExitPressedOnce)
+        {
+            super.onBackPressed()
+            return
+        }
+        this.doubleBackToExitPressedOnce = true
+
+        Toast.makeText(this, resources.getString(R.string.please_click_back_again_to_exit), Toast.LENGTH_LONG). show()
+
+        Handler().postDelayed({doubleBackToExitPressedOnce = false}, 2000)
     }
 }

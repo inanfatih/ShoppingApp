@@ -1,10 +1,9 @@
-package com.minan.shoppingapp.activities
+package com.minan.shoppingapp.ui.activities
 
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
@@ -101,9 +100,6 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
 
     fun userLoggedInSuccess(user: User) {
         hideProgressDialog()
-        Log.i("First name", user.firstName)
-        Log.i("Last name", user.lastName)
-        Log.i("email", user.email)
 
         if (user.profileCompleted == 0)
         {
@@ -113,7 +109,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         }
         else
         {
-            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this, DashboardActivity::class.java))
         }
         finish()
     }

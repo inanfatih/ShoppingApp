@@ -1,4 +1,4 @@
-package com.minan.shoppingapp.activities
+package com.minan.shoppingapp.ui.activities
 
 import android.content.Intent
 import android.os.Bundle

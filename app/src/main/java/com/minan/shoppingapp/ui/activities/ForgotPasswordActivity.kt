@@ -1,4 +1,4 @@
-package com.minan.shoppingapp.activities
+package com.minan.shoppingapp.ui.activities
 
 import android.os.Bundle
 import android.text.TextUtils
@@ -11,11 +11,10 @@ import com.minan.shoppingapp.databinding.ActivityForgotPasswordBinding
 import com.minan.shoppingapp.databinding.ActivityLoginBinding
 import com.minan.shoppingapp.databinding.ActivityRegisterBinding
 
-private lateinit var binding: ActivityForgotPasswordBinding
-private lateinit var bindingLogin: ActivityLoginBinding
-private lateinit var bindingRegister: ActivityRegisterBinding
-
 class ForgotPasswordActivity : BaseActivity(), View.OnClickListener {
+    private lateinit var binding: ActivityForgotPasswordBinding
+    private lateinit var bindingLogin: ActivityLoginBinding
+    private lateinit var bindingRegister: ActivityRegisterBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

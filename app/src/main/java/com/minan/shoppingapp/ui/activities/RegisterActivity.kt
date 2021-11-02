@@ -1,4 +1,4 @@
-package com.minan.shoppingapp.activities
+package com.minan.shoppingapp.ui.activities
 
 import android.os.Build
 import android.os.Bundle
@@ -14,10 +14,9 @@ import com.minan.shoppingapp.databinding.ActivityRegisterBinding
 import com.minan.shoppingapp.firestore.FirestoreClass
 import com.minan.shoppingapp.models.User
 
-private lateinit var binding: ActivityRegisterBinding
-
 // BaseActivity, AppCompatActivity'i inherit ettiginden dolayi burada BaseActivity'i inherit etmek, ayni zamanda AppCompatActivity'i inherit etmek demek oluyor
 class RegisterActivity : BaseActivity() {
+    private lateinit var binding: ActivityRegisterBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
